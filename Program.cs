@@ -10,6 +10,10 @@ namespace PES
     class Program
     {
         bool CLOSE = false;
+        /// <summary>
+        /// 0: modules; 1: layout
+        /// </summary>
+        int InputMode = 1;
         ConsoleKey[] AvailableKeys =
         {
             ConsoleKey.A,
@@ -67,6 +71,7 @@ namespace PES
             ConsoleKey.Spacebar
         };
         peScript script;
+        Layout ship;
 
         static void Main(string[] args)
         => new Program().Game();
@@ -82,6 +87,8 @@ namespace PES
             Console.CursorVisible = false;
             script = new peScript();
             script.InitPes("");
+            ship = new Layout();
+            ship.LayoutInit();
 
             Task.Run(() =>
             {
@@ -93,7 +100,7 @@ namespace PES
         {
             while(!CLOSE)
             {
-                Console.WriteLine("text");
+                //Console.WriteLine("text");
                 Thread.Sleep(10000);
             }
         }
@@ -155,7 +162,15 @@ namespace PES
 
                 } while (!enter_pressed);
                 cursor_pos = 0;
-                ProcessInput(result);
+                switch (InputMode)
+                {
+                    case 0:
+                        ProcessInput(result);
+                        break;
+                    case 1:
+                        LayoutInput(result);
+                        break;
+                }
             }
         }
 
@@ -171,6 +186,16 @@ namespace PES
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(lul);
             Console.ResetColor();
+        }
+
+        private void LayoutInput(string buffer)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(">" + buffer);
+            Console.ResetColor();
+            buffer = buffer.ToLower();
+            ship.Breach();
+            ship.Show();
         }
     }
 }
