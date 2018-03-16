@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PES
 {
@@ -88,8 +89,14 @@ namespace PES
             string[] Lines = File.ReadAllLines(@"tmp\" + module_array[1] + @"\code.pes");
 
             bool Skip = false;
-            foreach (var lineRaw in Lines)
+            bool SkipW = false;
+            bool Loop = false;
+            int LoopInt = 0;
+
+            for (int i = 0; i < Lines.Count(); i++)
             {
+                Thread.Sleep(100);
+                var lineRaw = Lines[i];
                 if (string.IsNullOrWhiteSpace(lineRaw) || string.IsNullOrEmpty(lineRaw))
                     continue;
                 string line = lineRaw;
@@ -104,16 +111,43 @@ namespace PES
                         break;
                     }
                 }
-
-                if (Skip)
+                
+                if (line.Length > 4 && line.Substring(0, 5) == "IFEND")
                 {
-                    if(line.Split(' ')[0].Substring(0, 3) == "END")
-                    {
-                        Skip = false;
-                    }
+                    Skip = false;
                     continue;
                 }
+                if (Skip)
+                {
+                    continue;
+                }
+
+
+
+
+                if (SkipW && line.Length > 4 && line.Substring(0, 5) == "WHEND")
+                {
+                    SkipW = false;
+                    continue;
+                }
+                if (SkipW)
+                {
+                    continue;
+                }
+
                 Skip = !Process(line);
+
+
+                if (line.Length > 4 && line.Substring(0, 5) == "WHILE")
+                {
+                    Loop = Process(line.Substring(6));
+                    SkipW = !Loop;
+                    LoopInt = i;
+                }
+                if(Loop && line.Length > 4 && line.Substring(0, 5) == "WHEND")
+                {
+                    i = LoopInt;
+                }
             }
 
             return "";
@@ -125,6 +159,8 @@ namespace PES
             switch (command.ToLower())
             {
                 case "+":
+                case "ifend":
+                case "whend":
                     return true;
                 case "print":
                     Console.WriteLine(line.Split('"')[1]);
@@ -133,6 +169,8 @@ namespace PES
                     return IFS(line);
                 case "iff":
                     return IFF(line);
+                case "while":
+                    return true;
             }
             return false;
         }

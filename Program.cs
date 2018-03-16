@@ -79,6 +79,7 @@ namespace PES
 
         private void GameInitializing()
         {
+            Console.CursorVisible = false;
             script = new peScript();
             script.InitPes("");
 
@@ -160,10 +161,16 @@ namespace PES
 
         private void ProcessInput(string buffer)
         {
-            Console.WriteLine(buffer);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(">" + buffer);
+            Console.ResetColor();
             buffer = buffer.ToLower();
+            var lul = string.Empty;
             if (buffer.Length > 6 && buffer.Substring(0, 4) == "run.")
-                Console.WriteLine(script.Run(buffer.Substring(4)));
+                lul  = script.Run(buffer.Substring(4));
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(lul);
+            Console.ResetColor();
         }
     }
 }
