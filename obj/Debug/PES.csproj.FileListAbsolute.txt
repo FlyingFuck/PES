@@ -1,0 +1,7 @@
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\bin\Debug\PES.exe.config
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\bin\Debug\PES.exe
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\bin\Debug\PES.pdb
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\obj\Debug\PES.csprojResolveAssemblyReference.cache
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\obj\Debug\PES.csproj.CoreCompileInputs.cache
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\obj\Debug\PES.exe
+C:\Users\gold\source\repos\PhoenixExperimentalSystems\PES\obj\Debug\PES.pdb

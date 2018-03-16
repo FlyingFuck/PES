@@ -1,0 +1,18 @@
++ sarg0
++ farg1
+
+PRINT "this is test"
+
+IFS sarg0 = "string"
+	PRINT "tru my man"
+ENDIF
+IFS sarg0 != "string"
+	PRINT "false my dude"
+ENDIF
+
+IFF farg0 = 2.73
+	PRINT "tru my man"
+ENDIF
+IFF farg0 != 2.73
+	PRINT "false my dude"
+ENDIF
