@@ -38,12 +38,8 @@ namespace PES
         {
             int x = Console.CursorLeft;
             int y = Console.CursorTop;
-            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
-            Console.CursorLeft = 0;
-            for (int i = 0; i < Console.WindowWidth - 1; i++)
-                Console.Write(' ');
-            Console.CursorLeft = 0;
-            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
+            Console.CursorTop = Console.WindowTop;
+            Console.CursorLeft = Console.WindowWidth - 11;
             foreach (var xcoord in coords)
             {
                 foreach (var ycoord in xcoord)
@@ -59,8 +55,11 @@ namespace PES
                         Console.Write(ycoord);
                     }
                 }
-                Console.WriteLine();
+                Console.CursorTop = Console.CursorTop + 1;
+                Console.CursorLeft = Console.WindowWidth - 11;
             }
+            Console.CursorTop = y;
+            Console.CursorLeft = x;
         }
 
         public void Breach(int X = -1, int Y = -1)

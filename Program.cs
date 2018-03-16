@@ -13,7 +13,7 @@ namespace PES
         /// <summary>
         /// 0: modules; 1: layout
         /// </summary>
-        int InputMode = 1;
+        int InputMode = 0;
         ConsoleKey[] AvailableKeys =
         {
             ConsoleKey.A,
@@ -100,8 +100,8 @@ namespace PES
         {
             while(!CLOSE)
             {
-                //Console.WriteLine("text");
-                Thread.Sleep(10000);
+                ship.Show();
+                Thread.Sleep(1000);
             }
         }
 
@@ -127,6 +127,7 @@ namespace PES
                         Console.Write(' ');
                     Console.CursorLeft = 0;
                     Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
+                    Console.ResetColor();
                     Console.Write(result);
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
