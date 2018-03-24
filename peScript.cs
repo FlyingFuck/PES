@@ -14,9 +14,11 @@ namespace PES
         private List<string[]> MODULES;
         private List<string> Sarg;
         private List<float> Farg;
+        Terminal term;
 
-        public void InitPes(string path = "")
+        public void InitPes(string path = "", Terminal t = null)
         {
+            term = t;
             if (string.IsNullOrWhiteSpace(path))
                 path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -163,7 +165,7 @@ namespace PES
                 case "whend":
                     return true;
                 case "print":
-                    Console.WriteLine(line.Split('"')[1]);
+                    term.Write(line.Split('"')[1], true);
                     return true;
                 case "ifs":
                     return IFS(line);

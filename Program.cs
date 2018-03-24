@@ -72,6 +72,7 @@ namespace PES
         };
         peScript script;
         Layout ship;
+        Terminal term;
 
         static void Main(string[] args)
         => new Program().Game();
@@ -84,9 +85,11 @@ namespace PES
 
         private void GameInitializing()
         {
+            term = new Terminal();
+            term.Init();
             Console.CursorVisible = false;
             script = new peScript();
-            script.InitPes("");
+            script.InitPes("", term);
             ship = new Layout();
             ship.LayoutInit();
 
